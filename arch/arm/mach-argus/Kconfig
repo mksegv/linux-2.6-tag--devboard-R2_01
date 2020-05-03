@@ -1,0 +1,847 @@
+
+choice 
+	prompt "ARGUS version"
+	depends on ARCH_ARGUS
+	default ARGUS_3
+
+config ARGUS_3
+	bool "ARGUS-3"
+
+endchoice
+
+menu "ARGUS options"
+	depends on ARCH_ARGUS
+
+config ARGUS_FLASH_BUSWIDTH
+	int "Buswidth of flash in bytes"
+	default "2"
+	help
+	  Buswidth of flash in bytes.
+
+config ARGUS_WATCHDOG
+	bool "Enable ARGUS watchdog"
+	default y
+	help
+	  Enable ARGUS watchdog.
+
+config ARGUS_VRAM_SIZE
+	int "Megabytes of Video-RAM"
+	default "6"
+	help
+	  Amount of Video-RAM (in megabytes) to be set aside at boot
+	  for use by video driver modules or similar things
+
+config ARGUS_PLL_LOW
+	bool "System speed low mode"
+	default n
+	help
+	  Run with 15% slower system clock
+
+config ARGUS_SERIAL
+	bool "Argus serial port support (not req. for debug)"
+	help
+	  Argus serial port support (not req. for debug).
+
+config ARGUS_SERIAL_ALTMAJOR
+	bool "Use major 160 instead of TTY_MAJOR"
+	depends on ARGUS_SERIAL
+	help
+	  Use major 160 instead of TTY_MAJOR.
+
+config ARGUS_SERIAL_FORCE_RX_ENABLE
+	bool "Force pin enabling of rx pins"
+	depends on ARGUS_SERIAL
+	help
+	  Force pin enabling of rx pins.
+
+choice
+	prompt "Product debug-port"
+	default ARGUS_DEBUG_PORT0
+
+config ARGUS_DEBUG_PORT0
+	bool "Serial-0"
+
+config ARGUS_DEBUG_PORT1
+	bool "Serial-1"
+
+config ARGUS_DEBUG_PORT_NULL
+	bool "disabled"
+
+endchoice
+
+config ARGUS_DEBUG_PORT_BAUD
+	int "Debug port baudrate"
+	depends on ARGUS_DEBUG_PORT0 || ARGUS_DEBUG_PORT1
+	default "115200"
+	help
+	  Debug port baudrate.
+
+config ARGUS_LED1G
+	int "First green LED bit"
+	default "9"
+	help
+	  First green LED bit.
+
+config ARGUS_LED1R
+	int "First red LED bit"
+	default "10"
+	help
+	  First red LED bit.
+
+config ARGUS_LED2G
+	int "Second green LED bit"
+	default "11"
+	help
+	  Second green LED bit.
+
+config ARGUS_LED2R
+	int "Second red LED bit"
+	default "12"
+	help
+	  Second red LED bit.
+
+config ARGUS_LED2GR
+	int "Second green right LED bit"
+	help
+	  Second green right LED bit.
+
+config ARGUS_LED2RR
+	int "Second red right LED bit"
+	default "12"
+	help
+	  Second red right LED bit.
+
+config ARGUS_LED3G
+	int "Third green LED bit"
+	default "13"
+	help
+	  Third green LED bit.
+
+config ARGUS_LED3R
+	int "Third red LED bit"
+	default "14"
+	help
+	  Third red LED bit.
+
+config ARGUS_LED4G
+	int "Fourth green LED bit"
+	default "15"
+	help
+	  Fourth green LED bit
+
+config ARGUS_LED4R
+	int "Fourth red LED bit"
+	default "16"
+	help
+	  Fourth red LED bit
+
+config ARGUS_GPIO
+	bool "GPIO support"
+	help
+	  GPIO support.
+
+config ARGUS_BUTTON_BITMASK
+	hex "Button bitmask"
+	depends on ARGUS_GPIO
+	default "2000"
+	help
+	  Button bitmask.
+
+config ARGUS_GPIO_CHANGEABLE_BITS1
+	hex "User changeable bits mask (bits 0-31)"
+	depends on ARGUS_GPIO
+	default "FFFFFFFF"
+	help
+	  User changeable bits mask (bits 0-31).
+
+config ARGUS_GPIO_CHANGEABLE_BITS2
+	hex "User changeable bits mask (bits 32-63)"
+	depends on ARGUS_GPIO
+	default "FFFFFFFF"
+	help
+	  User changeable bits mask (bits 32-63).
+
+config ARGUS_GPIO_CHANGEABLE_BITS3
+	hex "User changeable bits mask (bits 64-91)"
+	depends on ARGUS_GPIO && ARGUS_3
+	default "FFFFFFFF"
+	help
+	  User changeable bits mask (bits 64-91).
+
+
+# Ethernet only available in Argus3
+config ARGUS_ETHERNET
+	bool "Ethernet support"
+	depends on ARGUS_3
+	help
+	  Ethernet support.
+
+config ARGUS_CF
+	bool "CF-card support"
+	default n
+	help
+	  CF-card support.
+
+config ARGUS_SSI
+	bool "SSI support"
+	default n
+	help
+	  SSI support.
+
+config ARGUS_CS0_CONFIG
+	hex "CS0 configuration"
+	default "0x00000061"
+	help
+	  CS0 configuration.
+
+config ARGUS_CS1_CONFIG
+	hex "CS1 configuration"
+	default "0x00000061"
+	help
+	  CS1 configuration.
+
+config ARGUS_CS2_CONFIG
+	hex "CS2 configuration"
+	default "0x00000000"
+	help
+	  CS2 configuration.
+
+config ARGUS_CS3_CONFIG
+	hex "CS3 configuration"
+	default "0x00000000"
+	help
+	  CS3 configuration.
+
+config ARGUS_CS4_CONFIG
+	hex "CS4 configuration"
+	default "0x00000001"
+	help
+	  CS4 configuration.
+
+config ARGUS_CS5_CONFIG
+	hex "CS5 configuration"
+	default "0x00000030"
+	help
+	  CS5 configuration.
+
+config ARGUS_SDCTRL1
+	hex "SDCTRL1"
+	default "0x00000325"
+	help
+	  SDCTRL1
+
+config ARGUS_SDCTRL2
+	hex "SDCTRL2"
+	default "0x001754f5"
+	help
+	  SDCTRL2
+
+config ARGUS_SDRFSH
+	hex "SDRFSH"
+	default "0x000007a9"
+	help
+	  SDRFSH
+
+config ARGUS_SDMODE
+	hex "SDMODE"
+	default "0x00000020"
+	help
+	  SDMODE
+
+config ARGUS_GPIO_0
+	hex "GPIO 0 configuration"
+	default "0x07"
+	help
+	  GPIO 0 configuration
+
+config ARGUS_GPIO_1
+	hex "GPIO 1 configuration"
+	default "0x07"
+	help
+	  GPIO 1 configuration
+
+config ARGUS_GPIO_2
+	hex "GPIO 2 configuration"
+	default "0xff"
+	help
+	  GPIO 2 configuration
+
+config ARGUS_GPIO_3
+	hex "GPIO 3 configuration"
+	default "0xff"
+	help
+	  GPIO 3 configuration
+
+config ARGUS_GPIO_4
+	hex "GPIO 4 configuration"
+	default "0xff"
+	help
+	  GPIO 4 configuration
+
+config ARGUS_GPIO_5
+	hex "GPIO 5 configuration"
+	default "0xff"
+	help
+	  GPIO 5 configuration
+
+config ARGUS_GPIO_6
+	hex "GPIO 6 configuration"
+	default "0xff"
+	help
+	  GPIO 6 configuration
+
+config ARGUS_GPIO_7
+	hex "GPIO 7 configuration"
+	default "0xff"
+	help
+	  GPIO 7 configuration
+
+config ARGUS_GPIO_8
+	hex "GPIO 8 configuration"
+	default "0xff"
+	help
+	  GPIO 8 configuration
+
+config ARGUS_GPIO_9
+	hex "GPIO 9 configuration"
+	default "0xff"
+	help
+	  GPIO 9 configuration
+
+config ARGUS_GPIO_10
+	hex "GPIO 10 configuration"
+	default "0x06"
+	help
+	  GPIO 10 configuration
+
+config ARGUS_GPIO_11
+	hex "GPIO 11 configuration"
+	default "0x06"
+	help
+	  GPIO 9 configuration
+
+config ARGUS_GPIO_12
+	hex "GPIO 12 configuration"
+	default "0x06"
+	help
+	  GPIO 12 configuration
+
+config ARGUS_GPIO_13
+	hex "GPIO 13 configuration"
+	default "0x06"
+	help
+	  GPIO 13 configuration
+
+config ARGUS_GPIO_14
+	hex "GPIO 14 configuration"
+	default "0x06"
+	help
+	  GPIO 14 configuration
+
+config ARGUS_GPIO_15
+	hex "GPIO 15 configuration"
+	default "0x06"
+	help
+	  GPIO 15 configuration
+
+config ARGUS_GPIO_16
+	hex "GPIO 16 configuration"
+	default "0x06"
+	help
+	  GPIO 16 configuration
+
+config ARGUS_GPIO_17
+	hex "GPIO 17 configuration"
+	default "0x06"
+	help
+	  GPIO 17 configuration
+
+config ARGUS_GPIO_18
+	hex "GPIO 18 configuration"
+	default "0xff"
+	help
+	  GPIO 18 configuration
+
+config ARGUS_GPIO_19
+	hex "GPIO 19 configuration"
+	default "0xff"
+	help
+	  GPIO 19 configuration
+
+config ARGUS_GPIO_20
+	hex "GPIO 20 configuration"
+	default "0xff"
+	help
+	  GPIO 20 configuration
+
+config ARGUS_GPIO_21
+	hex "GPIO 21 configuration"
+	default "0xff"
+	help
+	  GPIO 21 configuration
+
+config ARGUS_GPIO_22
+	hex "GPIO 22 configuration"
+	default "0xff"
+	help
+	  GPIO 22 configuration
+
+config ARGUS_GPIO_23
+	hex "GPIO 23 configuration"
+	default "0xff"
+	help
+	  GPIO 23 configuration
+
+config ARGUS_GPIO_24
+	hex "GPIO 24 configuration"
+	default "0x06"
+	help
+	  GPIO 24 configuration
+
+config ARGUS_GPIO_25
+	hex "GPIO 25 configuration"
+	default "0xff"
+	help
+	  GPIO 25 configuration
+
+config ARGUS_GPIO_26
+	hex "GPIO 26 configuration"
+	default "0xff"
+	help
+	  GPIO 26 configuration
+
+config ARGUS_GPIO_27
+	hex "GPIO 27 configuration"
+	default "0x06"
+	help
+	  GPIO 27 configuration
+
+config ARGUS_GPIO_28
+	hex "GPIO 28 configuration"
+	default "0xff"
+	help
+	  GPIO 28 configuration
+
+config ARGUS_GPIO_29
+	hex "GPIO 29 configuration"
+	default "0xff"
+	help
+	  GPIO 29 configuration
+
+config ARGUS_GPIO_30
+	hex "GPIO 30 configuration"
+	default "0xff"
+	help
+	  GPIO 30 configuration
+
+config ARGUS_GPIO_31
+	hex "GPIO 31 configuration"
+	default "0xff"
+	help
+	  GPIO 31 configuration
+
+config ARGUS_GPIO_32
+	hex "GPIO 32 configuration"
+	default "0xff"
+	help
+	  GPIO 32 configuration
+
+config ARGUS_GPIO_33
+	hex "GPIO 33 configuration"
+	default "0xff"
+	help
+	  GPIO 33 configuration
+
+config ARGUS_GPIO_34
+	hex "GPIO 34 configuration"
+	default "0xff"
+	help
+	  GPIO 34 configuration
+
+config ARGUS_GPIO_35
+	hex "GPIO 35 configuration"
+	default "0xff"
+	help
+	  GPIO 35 configuration
+
+config ARGUS_GPIO_36
+	hex "GPIO 36 configuration"
+	default "0xff"
+	help
+	  GPIO 36 configuration
+
+config ARGUS_GPIO_37
+	hex "GPIO 37 configuration"
+	default "0xff"
+	help
+	  GPIO 37 configuration
+
+config ARGUS_GPIO_38
+	hex "GPIO 38 configuration"
+	default "0xff"
+	help
+	  GPIO 38 configuration
+
+config ARGUS_GPIO_39
+	hex "GPIO 39 configuration"
+	default "0xff"
+	help
+	  GPIO 39 configuration
+
+config ARGUS_GPIO_40
+	hex "GPIO 40 configuration"
+	default "0xff"
+	help
+	  GPIO 40 configuration
+
+config ARGUS_GPIO_41
+	hex "GPIO 41 configuration"
+	default "0xff"
+	help
+	  GPIO 41 configuration
+
+config ARGUS_GPIO_42
+	hex "GPIO 42 configuration"
+	default "0xff"
+	help
+	  GPIO 42 configuration
+
+config ARGUS_GPIO_43
+	hex "GPIO 43 configuration"
+	default "0xff"
+	help
+	  GPIO 43 configuration
+
+config ARGUS_GPIO_44
+	hex "GPIO 44 configuration"
+	default "0xff"
+	help
+	  GPIO 44 configuration
+
+config ARGUS_GPIO_45
+	hex "GPIO 45 configuration"
+	default "0xff"
+	help
+	  GPIO 45 configuration
+
+config ARGUS_GPIO_46
+	hex "GPIO 46 configuration"
+	default "0xff"
+	help
+	  GPIO 46 configuration
+
+config ARGUS_GPIO_47
+	hex "GPIO 47 configuration"
+	default "0xff"
+	help
+	  GPIO 47 configuration
+
+config ARGUS_GPIO_48
+	hex "GPIO 48 configuration"
+	default "0xff"
+	help
+	  GPIO 48 configuration
+
+config ARGUS_GPIO_49
+	hex "GPIO 49 configuration"
+	default "0xff"
+	help
+	  GPIO 49 configuration
+
+config ARGUS_GPIO_50
+	hex "GPIO 50 configuration"
+	default "0xff"
+	help
+	  GPIO 50 configuration
+
+config ARGUS_GPIO_51
+	hex "GPIO 51 configuration"
+	default "0xff"
+	help
+	  GPIO 51 configuration
+
+config ARGUS_GPIO_52
+	hex "GPIO 52 configuration"
+	default "0xff"
+	help
+	  GPIO 52 configuration
+
+config ARGUS_GPIO_53
+	hex "GPIO 53 configuration"
+	default "0xff"
+	help
+	  GPIO 53 configuration
+
+config ARGUS_GPIO_54
+	hex "GPIO 54 configuration"
+	default "0xff"
+	help
+	  GPIO 54 configuration
+
+config ARGUS_GPIO_55
+	hex "GPIO 55 configuration"
+	default "0xff"
+	help
+	  GPIO 55 configuration
+
+config ARGUS_GPIO_56
+	hex "GPIO 56 configuration"
+	default "0xff"
+	help
+	  GPIO 56 configuration
+
+config ARGUS_GPIO_57
+	hex "GPIO 57 configuration"
+	default "0xff"
+	help
+	  GPIO 57 configuration
+
+config ARGUS_GPIO_58
+	hex "GPIO 58 configuration"
+	default "0xff"
+	help
+	  GPIO 58 configuration
+
+config ARGUS_GPIO_59
+	hex "GPIO 59 configuration"
+	default "0xff"
+	help
+	  GPIO 59 configuration
+
+config ARGUS_GPIO_60
+	hex "GPIO 60 configuration"
+	default "0xff"
+	help
+	  GPIO 60 configuration
+
+config ARGUS_GPIO_61
+	hex "GPIO 61 configuration"
+	default "0xff"
+	help
+	  GPIO 61 configuration
+
+config ARGUS_GPIO_62
+	hex "GPIO 62 configuration"
+	default "0x06"
+	help
+	  GPIO 62 configuration
+
+config ARGUS_GPIO_63
+	hex "GPIO 63 configuration"
+	default "0xff"
+	help
+	  GPIO 63 configuration
+
+# GPIO 64-91 only available in Argus-3
+# Default setting is 0x03, which means IN_PU (input with pull-up)
+# Some other obvious defaults are also specified.
+
+if (ARGUS_3)
+
+config ARGUS_GPIO_64
+	hex "GPIO 64 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 64 configuration
+
+
+config ARGUS_GPIO_65
+	hex "GPIO 65 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 65 configuration
+
+config ARGUS_GPIO_66
+	hex "GPIO 66 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 66 configuration
+
+config ARGUS_GPIO_67
+	hex "GPIO 67 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 67 configuration
+
+config ARGUS_GPIO_68
+	hex "GPIO 68 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 68 configuration
+
+config ARGUS_GPIO_69
+	hex "GPIO 69 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 69 configuration
+
+config ARGUS_GPIO_70
+	hex "GPIO 70 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 70 configuration
+
+# /RESET_OUT - default is ALT_FUNC to replicate /RESET input
+config ARGUS_GPIO_71
+	hex "GPIO 71 configuration/RESET_OUT - default is ALT_FUNC to replicate /RESET input"
+	default "0x07"
+	depends on ARGUS_3
+	help
+	  GPIO 71 configuration
+	  /RESET_OUT - default is ALT_FUNC to replicate /RESET input
+
+
+config ARGUS_GPIO_72
+	hex "GPIO 72 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 72 configuration
+
+config ARGUS_GPIO_73
+	hex "GPIO 73 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 73 configuration
+
+config ARGUS_GPIO_74
+	hex "GPIO 74 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 74 configuration
+
+config ARGUS_GPIO_75
+	hex "GPIO 75 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 75 configuration
+
+config ARGUS_GPIO_76
+	hex "GPIO 76 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 76 configuration
+
+config ARGUS_GPIO_77
+	hex "GPIO 77 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 77 configuration
+
+config ARGUS_GPIO_78
+	hex "GPIO 78 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 78 configuration
+
+config ARGUS_GPIO_79
+	hex "GPIO 79 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 79 configuration
+
+config ARGUS_GPIO_80
+	hex "GPIO 80 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 80 configuration
+
+config ARGUS_GPIO_81
+	hex "GPIO 81 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 81 configuration
+
+config ARGUS_GPIO_82
+	hex "GPIO 82 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 82 configuration
+
+# PHYCLK_OUT set as ALT_FUNC
+config ARGUS_GPIO_83
+	hex "GPIO 83 configuration"
+	default "0x07"
+	depends on ARGUS_3
+	help
+	  GPIO 83 configuration
+	  PHYCLK_OUT set as ALT_FUNC
+
+config ARGUS_GPIO_84
+	hex "GPIO 84 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 84 configuration
+
+config ARGUS_GPIO_85
+	hex "GPIO 85 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 85 configuration
+
+config ARGUS_GPIO_86
+	hex "GPIO 86 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 86 configuration
+
+config ARGUS_GPIO_87
+	hex "GPIO 87 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 87 configuration
+
+config ARGUS_GPIO_88
+	hex "GPIO 88 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 88 configuration
+
+config ARGUS_GPIO_89
+	hex "GPIO 89 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 89 configuration
+
+
+config ARGUS_GPIO_90
+	hex "GPIO 90 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 90 configuration
+
+config ARGUS_GPIO_91
+	hex "GPIO 91 configuration"
+	default "0x03"
+	depends on ARGUS_3
+	help
+	  GPIO 91 configuration
+
+endif
+
+endmenu
+
